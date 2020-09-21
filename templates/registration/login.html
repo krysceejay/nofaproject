@@ -1,0 +1,20 @@
+{% extends "layout/app.html" %} {% block body_block %}
+
+<h1>Login</h1>
+<form action="{% url 'login' %}" method="post">
+  {% csrf_token %} {% if form.errors %}
+  <div class="alert alert-primary">
+    Error: Username or Password not correct!
+  </div>
+  {% endif %}
+
+  <label for="">{{ form.username.label }}</label>
+  {{ form.username }}
+
+  <label for="">{{ form.password.label }}</label>
+  {{ form.password }}
+
+  <button type="submit">Sign In</button>
+</form>
+
+{% endblock %}
