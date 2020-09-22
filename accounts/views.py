@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib.auth import login
 from django.contrib.auth.models import User
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, UserEditForm
 from .token import account_activation_token
 
 # Create your views here.
@@ -30,6 +30,21 @@ class LogoutView(View):
 @login_required
 def dashboard(request):
     return render(request, 'accounts/dashboard.html', {'section': 'dashboard'}) 
+
+
+@login_required
+def edit(request):
+    if request.method == 'POST':
+        user_form = UserEditForm(instance=request.user,
+                                 data=request.POST)
+        if user_form.is_valid():
+            user_form.save()
+    else:
+        user_form = UserEditForm(instance=request.user)
+    return render(request,
+                  'accounts/edituser.html',
+                  {'user_form': user_form})
+
 
 def register(request):
     if request.method == 'POST':

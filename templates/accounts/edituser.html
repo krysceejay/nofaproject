@@ -1,0 +1,35 @@
+{% extends "layout/app.html" %} {% block body_block %}
+
+<h1>Edit User</h1>
+<form method="post">
+  {% csrf_token %}
+
+  {% if user_form.is_valid %}
+    <p>Details successfully updated</p>
+    <p>
+      <a href="{% url 'accounts:dashboard' %}">Back to Dashboard</a>
+    </p>
+
+  {% else %}
+  <p>You can edit your account</p>
+  {% endif %}
+
+  {% if form.errors %}
+  <p>Use the form below to edit your account</p>
+
+  {% for field in form %} {% if field.errors %}
+  <div class="alert alert-primary">
+    {{ field.label }} : {{ field.errors|striptags}}
+  </div>
+  {% endif %} {% endfor %} {% endif %}
+
+  <label for="">{{ user_form.first_name.label }}</label>
+  {{ user_form.first_name }}
+
+  <label for="">{{ user_form.last_name.label }}</label>
+  {{ user_form.last_name }}
+
+  <button type="submit">Edit User</button>
+</form>
+
+{% endblock %}

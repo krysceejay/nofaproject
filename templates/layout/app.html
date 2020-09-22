@@ -12,7 +12,7 @@
       <a href="{% url 'logout' %}">Logout</a>
       {% else %}
       <a href="{% url 'login' %}">Login</a>
-      <a href="">Register</a>
+      <a href="{% url 'accounts:register' %}">Register</a>
       {% endif %}
     </nav>
     {% block body_block %} {% endblock %}
