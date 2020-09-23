@@ -1,0 +1,29 @@
+{% extends "layout/app.html" %} {% block body_block %}
+
+<h1>Register</h1>
+<form action="{% url 'accounts:register' %}" method="post">
+  {% csrf_token %} {% if form.errors %}
+  <p>Please correct the following errors</p>
+
+  {% for field in form %} {% if field.errors %}
+  <div class="alert alert-primary">
+    {{ field.label }} : {{ field.errors|striptags}}
+  </div>
+  {% endif %} {% endfor %} {% endif %}
+
+  <label for="">{{ form.username.label }}</label>
+  {{ form.username }}
+
+  <label for="">{{ form.email.label }}</label>
+  {{ form.email }}
+
+  <label for="">{{ form.password.label }}</label>
+  {{ form.password }}
+
+  <label for="">{{ form.password2.label }}</label>
+  {{ form.password2 }}
+
+  <button type="submit">Register</button>
+</form>
+
+{% endblock %}
